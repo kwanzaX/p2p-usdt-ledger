@@ -1,0 +1,21 @@
+{
+  "name": "p2p-usdt-ledger",
+  "version": "0.1.0",
+  "description": "A USDT payout ledger that replicates peer to peer over Hyperswarm, with signed append-only logs (Hypercore) and reader-side validation.",
+  "main": "src/ledger.js",
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "author": "João Kwanza",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "b4a": "^1.9.0",
+    "hypercore": "^11.37.2",
+    "hyperdht": "^6.34.1",
+    "hyperswarm": "^4.17.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
