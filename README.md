@@ -12,6 +12,14 @@ The writer appends deposits and transfers to an append-only log. Readers find th
 - **An invariant guards the fold.** Money only enters through deposits, so the sum of balances must equal deposits applied, or the fold throws.
 - **Readers help readers.** Every peer serves the blocks it holds, so the writer does not have to stay online for new readers to catch up.
 
+## Install
+
+```
+npm install p2p-usdt-ledger
+# for the projections, add the driver you use:
+npm install mysql2   # or: npm install mongodb
+```
+
 ## Use
 
 ```js
