@@ -11,8 +11,7 @@
 
 const Hypercore = require('hypercore')
 
-const ASSETS = new Set(['USDT'])
-const NETWORKS = new Set(['TRC-20', 'BEP-20', 'ERC-20'])
+const { checkShape } = require('./rules')
 
 /** Opens the writer's ledger (no key) or a read-only replica (with the writer's public key). */
 async function openLedger (dir, key) {
@@ -51,17 +50,6 @@ async function appendDeposit (core, d) {
   if (problem) throw new Error(`refusing to append: ${problem}`)
   const { length } = await core.append(entry)
   return length - 1
-}
-
-function checkShape (e) {
-  if (typeof e.id !== 'string' || !e.id) return 'id must be a non-empty string'
-  if (!Number.isSafeInteger(e.amount) || e.amount <= 0) return 'amount must be a positive integer (micro-units)'
-  if (!ASSETS.has(e.asset)) return `unsupported asset ${e.asset}`
-  if (!NETWORKS.has(e.network)) return `unsupported network ${e.network}`
-  if (typeof e.to !== 'string' || !e.to) return 'to is required'
-  if (e.type === 'transfer' && (typeof e.from !== 'string' || !e.from)) return 'from is required'
-  if (e.type === 'transfer' && e.from === e.to) return 'from and to must differ'
-  return null
 }
 
 /**
